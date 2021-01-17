@@ -46,6 +46,13 @@
 </head>
 <body>
     <h1> REQUISITIONS MADE</h1>
+    
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+     @endif
+
     <table class="table">
         <thead>
             <tr>
@@ -72,8 +79,9 @@
         </tbody>
         <tfoot>
         <tr>
-            <td><button class="btn btn-danger">Disapprove</button></td>
-            <td><button class="btn btn-success">Approve</button></td>                
+            <td><a class="btn btn-danger">Disapprove</a></td>
+
+            <td><a class="btn btn-success" href="/approve/{{$commonId}}">Approve</a></td>                
         </tr>
         </tfoot>
     </table>

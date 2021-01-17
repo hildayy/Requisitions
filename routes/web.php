@@ -16,8 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/',[App\http\Controllers\FormController::class,'index']);
 Route::post('index',[App\http\Controllers\FormController::class,'store'])->name('store');
 Route::post('/',[App\http\Controllers\FormController::class,'index'])->name('index');
 Route::get('/index2',[App\http\Controllers\FormController::class,'index2'])->name('index2');
 Route::get('/requisitions/{id}',[App\http\Controllers\FormController::class,'requisitions'])->name('requisitions');
+
+Route::get('/approve/{id}', [App\http\Controllers\FormController::class,'approveReq'])->name('approveReq');

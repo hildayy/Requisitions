@@ -65,7 +65,23 @@ class FormController extends Controller
     public function requisitions($id)
     {
         $requisitions=Requisitions::where('req_id','=',$id)->get();
-        return view('products',compact('requisitions'));
+        $commonId = $id;
+        return view('products',compact('requisitions', 'commonId'));
+    }
+
+    public function approveReq($id)
+    {
+        $requisitions = Requisitions::where('req_id', $id)->get();
+        $form = Form::find($id);
+        $form->feedback = 'approved';
+        $form->save();
+
+        foreach($requisitions as $requisition) {
+            $requisition->feedback = 'approved';
+            $requisition->save();
+        }
+
+        return redirect()->back()->with('success', 'Approved.');
     }
 
 }

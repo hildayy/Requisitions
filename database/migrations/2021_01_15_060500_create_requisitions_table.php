@@ -21,6 +21,7 @@ class CreateRequisitionsTable extends Migration
             $table->integer('quantity');
             $table->integer('cost');
             $table->integer('total');
+            $table->string('feedback')->default('pending');
             $table->foreign('req_id')->references('id')->on('forms');
             $table->timestamps();
         });

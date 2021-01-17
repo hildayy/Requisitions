@@ -61,7 +61,9 @@
                 <td>{{$data->name}}</td>
                 <td>{{$data->department}}</td>
                 <td>{{$data->email}}</td>
+                         
                <td><a href="/requisitions/{{$data->id}}">{{$data->id}}</a></td>
+               <td>{{$data->feedback}}</td>      
              
             </tr>
           @endforeach              
