@@ -63,16 +63,12 @@
                 <td>{{$data->email}}</td>
                          
                <td><a href="/requisitions/{{$data->id}}">{{$data->id}}</a></td>
-               <td>{{$data->feedback}}</td>      
+               <td class ="feedback">{{$data->feedback}}</td>      
              
             </tr>
           @endforeach              
         </tbody>
     </table>
-
- 
-
-
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>

@@ -24,3 +24,4 @@ Route::get('/index2',[App\http\Controllers\FormController::class,'index2'])->nam
 Route::get('/requisitions/{id}',[App\http\Controllers\FormController::class,'requisitions'])->name('requisitions');
 
 Route::get('/approve/{id}', [App\http\Controllers\FormController::class,'approveReq'])->name('approveReq');
+Route::get('/disapprove/{id}', [App\http\Controllers\FormController::class,'disapproveReq'])->name('disapproveReq');

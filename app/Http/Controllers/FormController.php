@@ -83,5 +83,19 @@ class FormController extends Controller
 
         return redirect()->back()->with('success', 'Approved.');
     }
+    public function disapproveReq($id)
+    {
+        $requisitions = Requisitions::where('req_id', $id)->get();
+        $form = Form::find($id);
+        $form->feedback = 'Disapproved';
+        $form->save();
+
+        foreach($requisitions as $requisition) {
+            $requisition->feedback = 'disapproved';
+            $requisition->save();
+        }
+
+        return redirect()->back()->with('success', 'Disapproved.');
+    }
 
 }

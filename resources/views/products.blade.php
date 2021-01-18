@@ -79,7 +79,7 @@
         </tbody>
         <tfoot>
         <tr>
-            <td><a class="btn btn-danger">Disapprove</a></td>
+            <td><a class="btn btn-danger" href="/disapprove/{{$commonId}}">Disapprove</a></td>
 
             <td><a class="btn btn-success" href="/approve/{{$commonId}}">Approve</a></td>                
         </tr>
