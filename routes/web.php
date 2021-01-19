@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,5 @@ Route::get('/requisitions/{id}',[App\http\Controllers\FormController::class,'req
 
 Route::get('/approve/{id}', [App\http\Controllers\FormController::class,'approveReq'])->name('approveReq');
 Route::get('/disapprove/{id}', [App\http\Controllers\FormController::class,'disapproveReq'])->name('disapproveReq');
+
+Route::get('/sendEmail', [App\http\Controllers\FormController::class, 'sendEmail'])->name('sendEmail');
