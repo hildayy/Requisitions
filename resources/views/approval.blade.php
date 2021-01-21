@@ -15,16 +15,17 @@
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet"> 
 	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script> 
+    
+   
+
     <style type="text/css">
      	h3,h1{
      		animation: bounce;
      		animation-duration: 2s;
      	}
-     	h1.tittle{
+     	h3.tittle{
      		font-family: 'Times New Roman', serif;
-     		margin-top: 30px;
-     		margin-left: 100px;
-     		font-size: 50px;
+            text-align: center;
      	}
      	form{
      		margin-top: 50px;
@@ -33,17 +34,43 @@
      		margin-bottom: 100px;
      		animation-delay: 0.5s;
      	}
+        .red {
+            background-color: #ec5555;
+        }
+        
+        .green {
+            background-color: #99e8ac;
+        }
+        .yellow{
+            background-color: #F8F121;
+        }
+        .center {
+           display: block; 
+           margin-left: auto;
+            margin-right: auto;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
-    crossorigin="anonymous"></script>
-
- 
-   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-   
+    crossorigin="anonymous"></script> 
+    
 </head>
 <body>
-    <h1> REQUISITIONS</h1>
-    <table class="table">
+    <img src="https://mftfulfillmentcentre.com/images/logo.png" class="center"/>
+    <h3 class="tittle">  REQUISITIONS</h3>
+    
+    <div class="row" style="margin-bottom: 30px;">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <div class="card">
+                <p>Approved orders</p>
+           </div>
+        </div>
+
+       
+    </div>
+    <div class="container" >
+    
+    <table class="table table-bordered" id="requisition" >
         <thead>
             <tr>
                 <th>No.</th>
@@ -61,17 +88,30 @@
                 <td>{{$data->name}}</td>
                 <td>{{$data->department}}</td>
                 <td>{{$data->email}}</td>
-                         
-               <td><a href="/requisitions/{{$data->id}}">{{$data->id}}</a></td>
-               <td class ="feedback">{{$data->feedback}}</td>      
-             
+                <td><a href="/requisitions/{{$data->id}}">{{$data->id}}</a></td>  
+
+                @if($data->feedback=="Disapproved")       
+               <td class ="feedback red">{{$data->feedback}}</td>  
+               @elseif($data->feedback=="approved") 
+               <td class ="feedback green">{{$data->feedback}}</td>  
+               @else
+               <td class ="feedback yellow">{{$data->feedback}}</td>  
+              @endif
             </tr>
           @endforeach              
         </tbody>
     </table>
+    </div>
+   
+    
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript"  src=" https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"  src=" https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+
+    
 </body>
 </html>

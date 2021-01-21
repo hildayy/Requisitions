@@ -26,30 +26,30 @@ class FormController extends Controller
     {
         //return view('index');
         $forms=Form::all();
+        $forms->sortBy('id',SORT_REGULAR, false);
 
         return view('approval',compact('forms'));
         
     }
     public function store(Request $request)
     {
-        request()->validate([
+        $request ->validate([
             'name' => 'required',
-            'email' => 'required|email',
-            'Item' => 'required',
-            'description' => 'required',
-            'quantity' => 'required',
-            'cost' => 'required',
-            'total' => 'required'
+            'email' => 'required|email'
         ]);
-       /* $request ->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'Item' => 'required',
-            'description' => 'required',
-            'quantity' => 'required',
-            'cost' => 'required',
-            'total' => 'required'
-        ]);*/
+      
+
+        $item = $request->Item;
+        $quantity = $request->quantity;
+        $cost = $request->cost;
+
+
+        foreach ($item as $key => $value) {
+            if ($item[$key] == null || $quantity[$key] == null || $cost[$key] == null) {
+                // abort(422, 'Please fill all required fields');
+                return redirect()->back()->withErrors([ 'Please fill all required fields']);
+            }
+        }
         $data=$request->all();
         $lastid=Form::create($data)->id;
         if(count($request->Item)>0)
@@ -87,9 +87,9 @@ class FormController extends Controller
                          ->with('success','Requisition has been made successfully.');
      
     }
+    
 
-
-    public function requisitions($id)
+    public function requisitions($id,Request $request)
     {
         $requisitions=Requisitions::where('req_id','=',$id)->get();
         $commonId = $id;
@@ -109,15 +109,15 @@ class FormController extends Controller
         }
          
         $from_name='hildah';
-        $to_name=$request['name'];
-        $to_email=$request['email'];
+        $to_name=$form->name;
+        $to_email=$form->email;
         $data = array(
             'name'=>$to_name, 
             "body" => "Test2 mail"
         );
 
         Mail::send('emails\gmail2', $data, function($message)use($to_name,$to_email,$from_name) {
-            $message->to('jhildah24@gmail.com')
+            $message->to($to_email)
             ->subject('Requisitions With Gmail');
             $message->from('jelagathildah@gmail.com',$from_name);
 
@@ -127,7 +127,7 @@ class FormController extends Controller
 
         return redirect()->back()->with('success', 'Approved.');
     }
-    public function disapproveReq($id)
+    public function disapproveReq($id ,Request $request)
     {
         $requisitions = Requisitions::where('req_id', $id)->get();
         $form = Form::find($id);
@@ -139,15 +139,15 @@ class FormController extends Controller
             $requisition->save();
         }
         $from_name='hildah';
-        $to_name=$request['name'];
-        $to_email=$request['email'];
+        $to_name=$form->name;
+        $to_email=$form->email;
         $data = array(
             'name'=>$to_name, 
             "body" => "Test2 mail"
         );
 
         Mail::send('emails\gmail2', $data, function($message)use($to_name,$to_email,$from_name) {
-            $message->to('jhildah24@gmail.com')
+            $message->to($to_email,$to_name)
             ->subject('Requisitions With Gmail');
             $message->from('jelagathildah@gmail.com',$from_name);
 

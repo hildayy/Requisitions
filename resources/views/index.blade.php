@@ -12,10 +12,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.9.0/jquery.validate.min.js" integrity="sha512-FyKT5fVLnePWZFq8zELdcGwSjpMrRZuYmF+7YdKxVREKomnwN0KTUG8/udaVDdYFv7fTMEc+opLqHQRqBGs8+w==" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>  
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet"> 
 	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -39,51 +35,45 @@
      		margin-bottom: 100px;
      		animation-delay: 0.5s;
      	}
-		 .has-error{
-			 border-color:#cc0000;
-			 backgroun-color:#ffff99;
-		 }
+		.has-error{
+			border-color:#cc0000;
+			background-color:#ffff99;
+		}
+		.reload {
+            font-family: Lucida Sans Unicode
+        }
+		.fa-plus, .fa-trash-alt {
+           color: #F3F2F8;
+        }
+		
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
-    crossorigin="anonymous"></script>
-
-
- 
-   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-   
-</head>
+    crossorigin="anonymous"></script> 
 <body>
 	<div class="row">
 		<div class="col-md-3">
-			<img src="https://speedballcourier.com/wp-content/uploads/2018/05/logo-white.png" height="150" width="150" style="    margin-left: 30px;" alt="Speedball courier services" aria-describedby="imageDesc">
-			<small id="imageDesc" class="form-text text-muted" style="margin-left: 40px;">COURIER SERVICE</small>
+			<img src="https://mftfulfillmentcentre.com/images/logo.png" height="150" width="200" style="    margin-left: 30px;" alt="MFT fulfillment Center">
 		</div>
 		<div class="col-md 9">
 			<h1 class="tittle">REQUISITION FORM</h1>
 		</div>
 	</div>
     @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-     @endif
-	 <!--@if ($errors->any())
-        @foreach ($errors->all() as $error)
-         <div class="alert alert-danger">{{$error}}</div>
-         @endforeach
-     @endif-->
-	 @if (count($errors)>0)
-	 <div class="alert alert-danger">
-		 <button type="button" class="close" data-dismiss="alert">
-		 X</button>
-		 <ul>
-		 @foreach ($errors->all() as $error)
-		 <li>{{$error}}</li>
-		 @endforeach
+		<div class="alert alert-success">
+			{{ session('success') }}
+		</div>
+    @endif
 
-		 </ul>
-	 </div>
-	 @endif
+	@if(count($errors)>0)
+	   <div class="alert alert-danger">
+	        <button type="button" class="close" data-dismiss="alert">x</button>
+			<ul>
+			    @foreach($errors->all() as $error)
+				    <li>{{$error}}</li>
+		        @endforeach
+			</ul>
+	    </div>
+	@endif
 	
 	<form action="{{route('store')}}" id="requisitionForm" name="requisitionForm" method="post" autocomplete="off">
 		{{csrf_field()}}
@@ -91,25 +81,25 @@
 			<div class="col-md-4">
 				<div class=" form-group">
 					<label for ="date">Date</label>
-					<input type="date" class="form-control" name="Date">
+					<input type="date" class="form-control" name="Date" value="{{old('Date')}}">
 				</div>
 			</div>
 			<div class="col-md-4"></div>
 
 			<div class="col-md-4">
 				<div class=" form-group">
-						<label><a href="/index2">View requisitions</a></label>
-						
+				   <label><a href="/index2">View requisitions</a></label>
 				</div>
 			</div>
 	    </div>
 
 	    <H5>Requisiter Info.</H5>
+
 	    <div class="row">	
 			<div class="col-md-4">
 				<div class=" form-group">
 					<label for ="name">Name</label>
-					<input type="text" class="form-control" name="name">
+					<input type="text" class="form-control" name="name"value="{{old('name')}}">
 					<span class="text-danger">{{ $errors->first('name') }}</span>
 				</div>
 			</div>
@@ -119,23 +109,24 @@
 					<label for ="department">Department</label>
 					<select class="custom-select" name="department">
 						<option>Select One</option>
-						<option>Business Development</option>
-						<option>Customer Service/Call Center</option>
-						<option>Finance</option>
-						<option>I.T</option>
-						<option>Operations</option>
-						<option>Warehouse</option>
+						<option value="Business Development" {{ old('department') == "Business Development" ? 'selected' : '' }}>Business Development</option>
+						<option value="Customer Service/Call Center" {{ old('department') == "Customer Service/Call Center" ? 'selected' : '' }}>Customer Service/Call Center</option>
+						<option value="Finance" {{ old('department') == "Finance" ? 'selected' : '' }}>Finance</option>
+						<option value="I.T" {{ old('department') == "I.T" ? 'selected' : '' }}>I.T</option>
+						<option value="Operations" {{ old('department') == "Operations" ? 'selected' : '' }}>Operations</option>
+						<option value="Warehouse" {{ old('department') == "Warehouse" ? 'selected' : '' }}>Warehouse</option>
 					</select>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class=" form-group">
 					<label for ="email">Email</label>
-					<input type="email"class="form-control" name="email">
+					<input type="email"class="form-control" name="email"value="{{old('email')}}">
 					<span class="text-danger">{{ $errors->first('email') }}</span>
 				</div>
 			</div>	
 		</div>	
+
 		<h5>Recommended Vendor Info.</h5>	
 		<div class="row">
 			<div class="col-md-4">
@@ -159,177 +150,83 @@
 		</div>
 		<h5>Materials required</h5>
 		<div class="table-responsive-md">
-		<table class="table table-bordered table-sm" id="materialsTable">
-			<thead>
-				<tr>
-				 <th scope="col-md-3">Item</th>
-				 <th scope="col-md-4">Description & Size</th>
-				 <th scope="col-md-1">Qty</th>
-				 <th scope="col-md-1">Cost</th>
-				 <th scope="col-md-2">Total</th>
-				 <th scope="col-md 1"></th>	
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<input type="text" name="Item[]">
-					    <span class="text-danger">{{ $errors->first('Item') }}</span>
+			<table class="table table-bordered table-sm" id="materialsTable">
+				<thead>
+					<tr>
+					<th scope="col-md-3">Item</th>
+					<th scope="col-md-4">Description & Size</th>
+					<th scope="col-md-1">Qty</th>
+					<th scope="col-md-1">Cost</th>
+					<th scope="col-md-2">Total</th>
+					<th scope="col-md 1"></th>	
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<input type="text" name="Item[]" value="{{old('Item[]')}}">
+							<span class="text-danger">{{ $errors->first('Item') }}</span>
 
-					</td>
-					<td>
-						<input type="text" name="description[]">
-					    <span class="text-danger">{{ $errors->first('description') }}</span>
+						</td>
+						<td>
+							<input type="text" name="description[]" value="{{old('description[]')}}">
+							<span class="text-danger">{{ $errors->first('description') }}</span>
 
-					</td>
-					<td>
-						<input type="number" name="quantity[]"class="quantity">
-					    <span class="text-danger">{{ $errors->first('quantity') }}</span>
+						</td>
+						<td>
+							<input type="number" name="quantity[]"class="quantity" value="{{old('quantity[]')}}">
+							<span class="text-danger">{{ $errors->first('quantity') }}</span>
 
-					</td>
-					<td>
-						<input type="number" name="cost[]" class="cost">
-					  <span class="text-danger">{{ $errors->first('cost') }}</span>
+						</td>
+						<td>
+							<input type="number" name="cost[]" class="cost" value="{{old('cost[]')}}">
+						<span class="text-danger">{{ $errors->first('cost') }}</span>
 
-					</td>
-					<td>
-						<input type="number" name="total[]" class="total">
-					</td>
-					<td>
-		 				<button type="button" class="btn btn-sm btn-danger servicedeletebtn">
-                        <i class="fa fa-trash"></i>
-                       </button>
-					</td>
-				</tr>
-			</tbody>
-			<tfoot>
-			 <td></td>
-			 <td></td>
-			 <td></td>
-			 <td>TOTAL</td>
-			 <td><b class="totals"></b></td>
+						</td>
+						<td>
+							<input type="number" name="total[]" class="total" value="{{old('total[]')}}">
+						</td>
+						<td>
+							<button type="button" class="btn btn-sm  servicedeletebtn"  style="background-color: #F90535;">
+							<i class="fa fa-trash-alt"></i>
+						</button>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>TOTAL</td>
+				<td><b class="totals"></b></td>
+				<td>
+				    <button type="button" class="btn btn-sm addRow" style="background-color: #3A26B8;">
+					<i class="fa fa-plus"></i>
+				</td>
 
-			</tfoot>
-		</table>
-	</div>
-
-	<input type="button" class="addRow btn btn-info" value="Add More">
-	<div class="row" style="margin-top: 30px;">
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
-			<div class="g-recaptcha" data-sitekey="6LfbtyIaAAAAAGd3MLJI6CtCocLo29P06M1Gil3o"></div>
+				</tfoot>
+			</table>
+	    </div>
+	
+	    <div class="row" style="margin-top: 30px;">
+	
 		</div>
-		<div class="col-md-4"></div>
-		<!--<div class="g-recaptcha" data-sitekey="6LfbtyIaAAAAAGd3MLJI6CtCocLo29P06M1Gil3o"></div>-->
-	</div>
-	<div class="alert alert-success d-none" id="msg_div">
-     <span id="res_message"></span>
-    </div>
 
-	<div class="row" style="align-items: center; margin: 30px">
-		<div class="col">
-			<input class="btn btn-warning" value="Cancel" type="reset">
+		<div class="row" style="align-items: center; margin: 30px">
+			<div class="col">
+				<input class="btn btn-warning" value="Cancel" type="reset">
+				<input type="submit" class="btn btn-success" value="Submit" id="reqform"> 
+			</div>
+				
+				
 		</div>
-			
-		<div class="col">
-			<input type="submit" class="btn btn-success" value="Submit" id="reqform">
-		</div>
-			
-			
-	</div>
 	</form>
-
-
-
-
-
 
 
 	<script>
 		$(document).ready(function() {
-			if($('#requisitionForm').length>0)
-			{
-				$('#requisitionForm').validate({
-					rules:{
-						name:{
-							required: true,
-							maxlength:25,
-							minlength:10
-						},
-						email:{
-							required:true,
-							email:true,
-							maxlength:40
-						},
-						Item:{
-							required:true
-						},
-						description:{
-							required:true
-						},
-						quantity:{
-							
-							required:true
-						},
-						cost:{
-							required:true
-						},
-					},
-					messages:{
-						name:{
-							required:'Name is required',
-							maxlength: 'Cannot be more than 25 characters',
-							minlength:'cannot be less than 10 charcters'
-						},
-						email:{
-							required:'Required',
-							email:'enter a valid email address',
-							maxlength:'cannot be more than 40 characters'
-						},
-						Item:{
-							required:'required'
-						},
-						description:{
-							required:'required'
-						},
-						quantity:{
-							
-							required:'required'
-						},
-						cost:{
-							required:'required'
-						},
-						
-					},
-					submitHandler: function(form) {
-						$.ajaxSetup({
-							headers: {
-								'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-							}
-						});
-						$('#reqform').html('Sending..');
-						$.ajax({
-						
-							type: "POST",
-							data: $('#requisitionForm').serialize(),
-							success: function( response ) {
-								$('#reqform').html('Submit');
-								$('#res_message').show();
-								$('#res_message').html(response.msg);
-								$('#msg_div').removeClass('d-none');
-								document.getElementById("contact_us").reset(); 
-								setTimeout(function(){
-									$('#res_message').hide();
-									$('#msg_div').hide();
-								},10000);
-							}
-						});
-					}
-				})
-			}
-
 			
-			$('tbody').on('click','.servicedeletebtn',function(e)
+		    $('tbody').on('click','.servicedeletebtn',function(e)
 			{ 	
 				e.preventDefault();
 				swal({
@@ -361,24 +258,24 @@
 		{
 			var tr='<tr>'+
 					'<td>'+
-						'<input type="text" name="Item[]">'+
+						'<input type="text" name="Item[]" value="{{old('Item[]')}}">'+
 					'</td>'+
 					'<td>'+
-						'<input type="text" name="description[]">'+
+						'<input type="text" name="description[]" value="{{old('description[]')}}">'+
 					'</td>'+
 					'<td>'+
-						'<input type="number" name="quantity[]" class="quantity">'+
+						'<input type="number" name="quantity[]" class="quantity" value="{{old('quantity[]')}}">'+
 					'</td>'+
 					'<td>'+
-						'<input type="number" name="cost[]" class="cost">'+
+						'<input type="number" name="cost[]" class="cost" value="{{old('cost[]')}}">'+
 					'</td>'+
 					'<td>'+
-						'<input type="number" name="total[]" class="total">'+
+						'<input type="number" name="total[]" class="total" value="{{old('total[]')}}">'+
 					'</td>'+
 					'<td>'+
-		 				'<button type="button" class="btn btn-sm btn-danger servicedeletebtn">'+
-                       '<i class="fa fa-trash"></i>'+
-                       '</button>'+
+		 				'<button type="button" class="btn btn-sm servicedeletebtn" style="background-color: #F90535;">'+
+                       '<i class="fa fa-trash-alt"></i>'+
+					   '</button>'+
 					'</td>'+
 				'</tr>';
 				$('tbody').append(tr);
