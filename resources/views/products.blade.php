@@ -60,7 +60,7 @@
                                     {{ session('success') }}
                                 </div>
                             @endif
-                        <table class="table">
+                        <table class="table tabl">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -86,6 +86,10 @@
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td><a class="btn btn-danger" href="/disapprove/{{$commonId}}">Disapprove</a></td>
                                     <td><a class="btn btn-success" href="/approve/{{$commonId}}">Approve</a></td>                
                                 </tr>

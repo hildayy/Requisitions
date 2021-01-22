@@ -46,8 +46,7 @@
         }
         .center {
            display: block; 
-           margin-left: auto;
-            margin-right: auto;
+
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
@@ -55,20 +54,114 @@
     
 </head>
 <body>
-    <img src="https://mftfulfillmentcentre.com/images/logo.png" class="center"/>
-    <h3 class="tittle">  REQUISITIONS</h3>
-    
-    <div class="row" style="margin-bottom: 30px;">
-        <div class="col-md-1"></div>
-        <div class="col-md-4">
-            <div class="card">
-                <p>Approved orders</p>
-           </div>
+
+
+    <div class="d-sm-flex align-items-center mb-4">
+       <img src="https://mftfulfillmentcentre.com/images/logo.png"/>
+       <div class="justify-content-between" style="margin-left: 30px;">
+          <h1 class="h1 mb-0 text-gray-800">REQUISITIONS</h1>
+       </div>
+        
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4"> 
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div  class="col-mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Approved Requisitions</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                <?php
+                                    $connection=mysqli_connect("localhost","root","","requisition_test");
+
+                                    $query="SELECT * FROM `forms` WHERE feedback='approved'";
+                                    $query_run=mysqli_query($connection,$query);
+                                    $row=mysqli_num_rows($query_run);
+                                    echo '<h1>'.$row.'</h1>'
+                                ?>
+                            </div>
+                        </div>      
+                    </div>
+                </div>
+            </div>
         </div>
 
-       
+
+        <div class="col-xl-3 col-md-6 mb-4"> 
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div  class="col-mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Declined Requisitions</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                <?php
+                                    $connection=mysqli_connect("localhost","root","","requisition_test");
+
+                                    $query="SELECT * FROM `forms` WHERE feedback='Disapproved'";
+                                    $query_run=mysqli_query($connection,$query);
+                                    $row=mysqli_num_rows($query_run);
+                                    echo '<h1>'.$row.'</h1>'
+                                ?>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4"> 
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div  class="col-mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requisitions</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                <?php
+                                    $connection=mysqli_connect("localhost","root","","requisition_test");
+
+                                    $query="SELECT * FROM `forms` WHERE feedback='Pending'";
+                                    $query_run=mysqli_query($connection,$query);
+                                    $row=mysqli_num_rows($query_run);
+                                    echo '<h1>'.$row.'</h1>'
+                                ?>
+                            </div>
+                        </div>   
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4"> 
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div  class="col-mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Requisitions</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                <?php
+                                    $connection=mysqli_connect("localhost","root","","requisition_test");
+
+                                    $query="SELECT * FROM `forms`";
+                                    $query_run=mysqli_query($connection,$query);
+                                    $row=mysqli_num_rows($query_run);
+                                    echo '<h1>'.$row.'</h1>'
+                                ?>
+                            </div>
+                        </div>   
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
-    <div class="container" >
+ 
+    
     
     <table class="table table-bordered" id="requisition" >
         <thead>
@@ -101,7 +194,7 @@
           @endforeach              
         </tbody>
     </table>
-    </div>
+    
    
     
 

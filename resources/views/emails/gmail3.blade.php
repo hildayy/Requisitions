@@ -6,8 +6,7 @@
 <body>
         Hi <strong>{{ $name }}</strong>,
         <p>{{ $body }}</p> 
-        <p>Your requisitionhas been disapproved<p>
-        <a href="/index2">View requisitions</a>
+        <p>Your requisitionhas been disapproved.<p>
 
     <p>Thank you</p>
 </body>

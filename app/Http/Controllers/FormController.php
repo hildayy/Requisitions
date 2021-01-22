@@ -73,12 +73,12 @@ class FormController extends Controller
         $from_email=$request['email'];
         $data = array(
             'name'=>$to_name, 
-            "body" => "Test mail"
+            "body" => "Review Requisition"
         );
 
         Mail::send('emails\gmail', $data, function($message)use($to_name,$from_email,$from_name) {
             $message->to('hildah.dala@gmail.com')
-            ->subject('Requisitions With Gmail');
+            ->subject('Items Requisition');
             $message->from($from_email,$from_name);
 
         });
@@ -100,11 +100,11 @@ class FormController extends Controller
     {
         $requisitions = Requisitions::where('req_id', $id)->get();
         $form = Form::find($id);
-        $form->feedback = 'approved';
+        $form->feedback = 'Approved';
         $form->save();
 
         foreach($requisitions as $requisition) {
-            $requisition->feedback = 'approved';
+            $requisition->feedback = 'Approved';
             $requisition->save();
         }
          
@@ -113,12 +113,12 @@ class FormController extends Controller
         $to_email=$form->email;
         $data = array(
             'name'=>$to_name, 
-            "body" => "Test2 mail"
+            "body" => "Response"
         );
 
         Mail::send('emails\gmail2', $data, function($message)use($to_name,$to_email,$from_name) {
             $message->to($to_email)
-            ->subject('Requisitions With Gmail');
+            ->subject('Requisitions Feedback');
             $message->from('jelagathildah@gmail.com',$from_name);
 
         });
@@ -135,7 +135,7 @@ class FormController extends Controller
         $form->save();
 
         foreach($requisitions as $requisition) {
-            $requisition->feedback = 'disapproved';
+            $requisition->feedback = 'Disapproved';
             $requisition->save();
         }
         $from_name='hildah';
@@ -143,12 +143,12 @@ class FormController extends Controller
         $to_email=$form->email;
         $data = array(
             'name'=>$to_name, 
-            "body" => "Test2 mail"
+            "body" => "Response"
         );
 
         Mail::send('emails\gmail2', $data, function($message)use($to_name,$to_email,$from_name) {
             $message->to($to_email,$to_name)
-            ->subject('Requisitions With Gmail');
+            ->subject('Requisitions Feedback');
             $message->from('jelagathildah@gmail.com',$from_name);
 
         });
