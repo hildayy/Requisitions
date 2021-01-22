@@ -98,7 +98,7 @@
 	    <div class="row">	
 			<div class="col-md-4">
 				<div class=" form-group">
-					<label for ="name">Name</label>
+					<label for ="name">Name</label><span style="color:#ff0000">*</span>
 					<input type="text" class="form-control" name="name"value="{{old('name')}}">
 					<span class="text-danger">{{ $errors->first('name') }}</span>
 				</div>
@@ -106,21 +106,21 @@
 
 			<div class="col-md-4">
 				<div class=" form-group">
-					<label for ="department">Department</label>
-					<select class="custom-select" name="department">
+					<label for ="department" >Department</label>
+					<select class="custom-select" name="department" value="{{old('department')}}">
 						<option>Select One</option>
-						<option value="Business Development" {{ old('department') == "Business Development" ? 'selected' : '' }}>Business Development</option>
-						<option value="Customer Service/Call Center" {{ old('department') == "Customer Service/Call Center" ? 'selected' : '' }}>Customer Service/Call Center</option>
-						<option value="Finance" {{ old('department') == "Finance" ? 'selected' : '' }}>Finance</option>
-						<option value="I.T" {{ old('department') == "I.T" ? 'selected' : '' }}>I.T</option>
-						<option value="Operations" {{ old('department') == "Operations" ? 'selected' : '' }}>Operations</option>
-						<option value="Warehouse" {{ old('department') == "Warehouse" ? 'selected' : '' }}>Warehouse</option>
+						<option>Business Development</option>
+						<option>Customer Service/Call Center</option>
+						<option>Finance</option>
+						<option>I.T</option>
+						<option>Operations</option>
+						<option>Warehouse</option>
 					</select>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class=" form-group">
-					<label for ="email">Email</label>
+					<label for ="email">Email</label><span style="color:#ff0000">*</span>
 					<input type="email"class="form-control" name="email"value="{{old('email')}}">
 					<span class="text-danger">{{ $errors->first('email') }}</span>
 				</div>
@@ -153,10 +153,10 @@
 			<table class="table table-bordered table-sm" id="materialsTable">
 				<thead>
 					<tr>
-					<th scope="col-md-3">Item</th>
+					<th scope="col-md-3">Item<span style="color:#ff0000">*</span></th>
 					<th scope="col-md-4">Description & Size</th>
-					<th scope="col-md-1">Qty</th>
-					<th scope="col-md-1">Cost</th>
+					<th scope="col-md-1">Quantity<span style="color:#ff0000">*</span></th>
+					<th scope="col-md-1">Cost<span style="color:#ff0000">*</span></th>
 					<th scope="col-md-2">Total</th>
 					<th scope="col-md 1"></th>	
 					</tr>

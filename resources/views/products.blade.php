@@ -82,17 +82,23 @@
                                         <td class="amount">{{$products->total}}</td>
                                     </tr>                
                                 @endforeach 
+                                
                                         
                             </tbody>
                             <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><a class="btn btn-danger" href="/disapprove/{{$commonId}}">Disapprove</a></td>
-                                    <td><a class="btn btn-success" href="/approve/{{$commonId}}">Approve</a></td>                
-                                </tr>
+                                @foreach($requisitions as $products)
+                                @if($products->feedback=="Pending")
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                        <td><a class="btn btn-danger" href="/disapprove/{{$commonId}}">Disapprove</a></td>
+                                        <td><a class="btn btn-success" href="/approve/{{$commonId}}">Approve</a></td>                
+                                    </tr>
+                                    @endif
+                                @endforeach 
                             </tfoot>
                         </table>
                     </div>

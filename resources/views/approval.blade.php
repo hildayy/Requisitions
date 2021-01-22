@@ -185,7 +185,7 @@
 
                 @if($data->feedback=="Disapproved")       
                <td class ="feedback red">{{$data->feedback}}</td>  
-               @elseif($data->feedback=="approved") 
+               @elseif($data->feedback=="approved"||$data->feedback=="Approved") 
                <td class ="feedback green">{{$data->feedback}}</td>  
                @else
                <td class ="feedback yellow">{{$data->feedback}}</td>  
