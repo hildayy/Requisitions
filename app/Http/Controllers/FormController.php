@@ -100,7 +100,7 @@ class FormController extends Controller
         //     $message->from($from_email,$from_name);
 
         // });
-        return ;
+        // return ;
 
         return redirect()->route('index')
                          ->with('success','Requisition has been made successfully.');
@@ -183,6 +183,7 @@ class FormController extends Controller
         $form = Form::find($id);
 
         Mail::send(new RequisitionMail2($form, $url_1, $url_2));
+        return 'Submited';
     }
 
     public function approve_2($id)
@@ -191,5 +192,6 @@ class FormController extends Controller
         // $form = Form::find($id);
 
         Mail::send(new RequisitionMail3($url));
+        return 'Submited';
     }
 }
