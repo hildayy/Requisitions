@@ -17,7 +17,7 @@ class CreateRequisitionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('req_id');
             $table->string('Item');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('quantity');
             $table->integer('cost');
             $table->integer('total');

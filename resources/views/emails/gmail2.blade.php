@@ -5,7 +5,7 @@
 </head>
 <body>
         Hi <strong>{{ $name }}</strong>,
-        <p>{{ $body }}</p> 
+        <p>{{ $body }}</p>
         <p>Your requisitionhas been approved<p>
 
     <p>Thank you</p>

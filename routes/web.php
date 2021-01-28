@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
@@ -14,22 +15,28 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::auth();
-
-Route::group(['middleware' => 'auth'], function() {
-
-
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', 'FormController@index');
+// Route::auth();
 Route::post('index', 'FormController@store')->name('store');
-Route::post('/', 'FormController@index')->name('index');
-Route::get('/index2', 'FormController@index2')->name('index2');
-Route::get('/requisitions/{id}', 'FormController@requisitions')->name('requisitions');
 
-Route::get('/approve/{id}',  'FormController@approveReq')->name('approveReq');
+Route::get('approve_1/{id}', 'FormController@approve_1')->name('approve_1');
+Route::get('approve_2/{id}', 'FormController@approve_2')->name('approve_2');
+
 Route::get('/disapprove/{id}',  'FormController@disapproveReq')->name('disapproveReq');
 
-Route::get('/sendEmail',  'FormController@sendEmail')->name('sendEmail');
+Auth::routes(['register' => false]);
+
+Route::group(['middleware' => 'auth'], function () {
+
+
+    Route::post('/', 'FormController@index')->name('index');
+    Route::get('/index2', 'FormController@index2')->name('index2');
+    Route::get('/requisitions/{id}', 'FormController@requisitions')->name('requisitions');
+
+    Route::get('/approve/{id}',  'FormController@approveReq')->name('approveReq');
+
+    Route::get('/sendEmail',  'FormController@sendEmail')->name('sendEmail');
 });
