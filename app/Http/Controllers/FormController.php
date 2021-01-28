@@ -91,9 +91,9 @@ class FormController extends Controller
 
     public function requisitions($id,Request $request)
     {
-        $requisitions=Requisitions::where('req_id','=',$id)->get();
+         $products=Requisitions::where('req_id', $id)->first();
         $commonId = $id;
-        return view('products',compact('requisitions', 'commonId'));
+        return view('products',compact('products', 'commonId'));
     }
 
     public function approveReq($id, Request $request)

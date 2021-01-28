@@ -85,12 +85,18 @@
 				</div>
 			</div>
 			<div class="col-md-4"></div>
+			@auth
 
 			<div class="col-md-4">
 				<div class=" form-group">
 				   <label><a href="/index2">View requisitions</a></label>
 				</div>
 			</div>
+			@endauth
+
+			@guest
+			<a href="/login">Login</a>
+			@endguest
 	    </div>
 
 	    <H5>Requisiter Info.</H5>

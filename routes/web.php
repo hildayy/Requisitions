@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Mail;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::auth();
+
+Route::group(['middleware' => 'auth'], function() {
+
 
 Route::get('/', 'FormController@index');
 Route::post('index', 'FormController@store')->name('store');
@@ -28,3 +32,4 @@ Route::get('/approve/{id}',  'FormController@approveReq')->name('approveReq');
 Route::get('/disapprove/{id}',  'FormController@disapproveReq')->name('disapproveReq');
 
 Route::get('/sendEmail',  'FormController@sendEmail')->name('sendEmail');
+});

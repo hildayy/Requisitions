@@ -72,22 +72,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($requisitions as $key=>$products)
+                
+                         
                                     <tr>
-                                        <td>{{++$key}}</td>
+                                        <td>1</td>
                                         <td>{{$products->Item}}</td>
                                         <td>{{$products->description}}</td>
                                         <td>{{$products->quantity}}</td>
                                         <td>{{$products->cost}}</td>
                                         <td class="amount">{{$products->total}}</td>
                                     </tr>                
-                                @endforeach 
+                             
                                 
                                         
                             </tbody>
                             <tfoot>
-                                @foreach($requisitions as $products)
-                                @if($products->feedback=="Pending")
+                               
+                                @if(strtolower($products->feedback)=="pending")
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -98,7 +99,7 @@
                                         <td><a class="btn btn-success" href="/approve/{{$commonId}}">Approve</a></td>                
                                     </tr>
                                     @endif
-                                @endforeach 
+                                
                             </tfoot>
                         </table>
                     </div>
