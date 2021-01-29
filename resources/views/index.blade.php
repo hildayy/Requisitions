@@ -45,11 +45,31 @@
 		.fa-plus, .fa-trash-alt {
            color: #F3F2F8;
         }
+		.cancel{
+			align-items: end;
+			margin-left: 100px;
+			margin-right: 200px;
+			border: 2px solid #2E0FC5;
+            color: #2E0FC5;
+		}
+		.cancel:hover{
+			background: #2E0FC5;
+			color: white;
+		}
+		.submit{
+			border: 2px solid #FAB706;
+            color: #FAB706;
+		}
+		.submit:hover{
+			background: #FAB706;
+			color: white;
+		}
 
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
     crossorigin="anonymous"></script>
 <body>
+<div class="container shadow" style="padding-bottom: 100px; margin-top: 40px;" >
 	<div class="row">
 		<div class="col-md-3">
 			<img src="https://mftfulfillmentcentre.com/images/logo.png" height="150" width="200" style="    margin-left: 30px;" alt="MFT fulfillment Center">
@@ -81,7 +101,7 @@
 			<div class="col-md-4">
 				<div class=" form-group">
 					<label for ="date">Date</label>
-					<input type="date" class="form-control" name="Date" value="{{old('Date')}}">
+					<input type="text" class="form-control" name="Date" value="{{old('Date')}}" id="currentDate" disabled>
 				</div>
 			</div>
 			<div class="col-md-4"></div>
@@ -218,18 +238,22 @@
 
 		</div>
 
-		<div class="row" style="align-items: center; margin: 30px">
-			<div class="col">
-				<input class="btn btn-warning" value="Cancel" type="reset">
-				<input type="submit" class="btn btn-success" value="Submit" id="reqform">
-			</div>
+		<div class="row" style="margin-left: 400px; margin-top: 40px;">
+			
+				<input class="btn cancel" value="Cancel" type="reset">
+				<input type="submit" class="btn submit" value="Submit" id="reqform">
+			
 
 
 		</div>
 	</form>
+</div>
 
 
 	<script>
+	   var today = new Date();
+       var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      document.getElementById("currentDate").value = date;
 		$(document).ready(function() {
 
 		    $('tbody').on('click','.servicedeletebtn',function(e)
@@ -264,19 +288,19 @@
 		{
 			var tr='<tr>'+
 					'<td>'+
-						'<input type="text" name="Item[]" value="{{old('Item[]')}}">'+
+						'<input type="text" name="Item[]">'+
 					'</td>'+
 					'<td>'+
-						'<input type="text" name="description[]" value="{{old('description[]')}}">'+
+						'<input type="text" name="description[]">'+
 					'</td>'+
 					'<td>'+
-						'<input type="number" name="quantity[]" class="quantity" value="{{old('quantity[]')}}">'+
+						'<input type="number" name="quantity[]" class="quantity">'+
 					'</td>'+
 					'<td>'+
-						'<input type="number" name="cost[]" class="cost" value="{{old('cost[]')}}">'+
+						'<input type="number" name="cost[]" class="cost">'+
 					'</td>'+
 					'<td>'+
-						'<input type="number" name="total[]" class="total" value="{{old('total[]')}}">'+
+						'<input type="number" name="total[]" class="total">'+
 					'</td>'+
 					'<td>'+
 		 				'<button type="button" class="btn btn-sm servicedeletebtn" style="background-color: #F90535;">'+

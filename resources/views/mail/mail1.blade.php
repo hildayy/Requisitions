@@ -4,7 +4,7 @@
 Kindly review the requistion
 
 
-<table class="table tabl">
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>No.</th>
