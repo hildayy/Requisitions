@@ -240,7 +240,7 @@
 
 		<div class="row" style="margin-left: 400px; margin-top: 40px;">
 			
-				<input class="btn cancel" value="Cancel" type="reset">
+				<input class="btn cancel card shadow" value="Cancel" type="reset">
 				<input type="submit" class="btn submit" value="Submit" id="reqform">
 			
 
@@ -271,7 +271,7 @@
 
 							$(this).parent().parent().remove();
 
-						swal("Poof! Your imaginary file has been deleted!", {
+						swal("Poof! Your requisition has been deleted!", {
 						icon: "success",
 						});
 					} else {
