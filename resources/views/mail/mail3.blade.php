@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello
 
-Kindly review the requistion
+Kindly review the requistion from  <b>{{ $data->name }}</b>
 
 @component('mail::button', ['url' => $url])
 View Requistion

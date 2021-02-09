@@ -30,7 +30,7 @@ class RequisitionMail3 extends Mailable
     public function build()
     {
         return $this->markdown('mail.mail3')
-                    ->to('managingdirector@mftfulfillmentcentre.com')
+                    ->to('victor.ouma@mftfulfillmentcentre.com')
                     ->from('mft.portal@gmail.com', $this->data['name'])
                     ->subject('Requisition');
     }
