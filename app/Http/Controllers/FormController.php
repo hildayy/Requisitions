@@ -110,7 +110,9 @@ class FormController extends Controller
 
     public function requisitions($id,Request $request)
     {
-         $products=Requisitions::where('req_id', $id)->first();
+          $products=Requisitions::with(['form' => function($query) {
+             $query->setEagerLoads([]);
+         }])->where('req_id', $id)->first();
         $commonId = $id;
         return view('products',compact('products', 'commonId'));
     }

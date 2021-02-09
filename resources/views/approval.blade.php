@@ -22,6 +22,7 @@
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
     </script>
 
+<link rel="icon" href="/logo/logo.png">
 
 
     <style type="text/css">
