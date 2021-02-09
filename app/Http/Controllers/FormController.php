@@ -28,7 +28,7 @@ class FormController extends Controller
     public function index2()
     {
         //return view('index');
-        $forms=Form::all();
+        $forms=Form::paginate(15);
         $forms->sortBy('id',SORT_REGULAR, false);
 
         $approved_count = Form::where('feedback', 'Approved')->count();
@@ -102,7 +102,6 @@ class FormController extends Controller
         // });
         // return ;
 
-        return 'sent';
         return redirect()->route('index')
                          ->with('success','Requisition has been made successfully.');
 
@@ -139,13 +138,14 @@ class FormController extends Controller
         Mail::send('emails.gmail2', $data, function($message)use($to_name,$to_email,$from_name) {
             $message->to($to_email)
             ->subject('Requisitions Feedback');
-            $message->from('jelagathildah@gmail.com',$from_name);
+            $message->from('mft.portal@gmail.com',$from_name);
 
         });
 
 
 
-        return redirect()->back()->with('success', 'Approved.');
+        return redirect()->route('index2')->with('success', 'Requisition Approved.');
+        // return redirect()->back()->with('success', 'Approved.');
     }
     public function disapproveReq($id ,Request $request)
     {
@@ -169,12 +169,12 @@ class FormController extends Controller
         Mail::send('emails.gmail3', $data, function($message)use($to_name,$to_email,$from_name) {
             $message->to($to_email,$to_name)
             ->subject('Requisitions Feedback');
-            $message->from('jelagathildah@gmail.com',$from_name);
+            $message->from('mft.portal@gmail.com',$from_name);
 
         });
 
-        return 'sent';
 
+        return redirect()->route('index2')->with('success', 'Requisition Disapproved.');
         // return redirect()->back()->with('success', 'Disapproved.');
     }
 
