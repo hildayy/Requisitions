@@ -1,10 +1,32 @@
 @component('mail::message')
 # Hello
 
-Kindly review the requistion
+Kindly review this requistion from <b>{{ $data->name }}</b>
 
+<hr>
+<style>
+    .table {
+        --bs-table-bg: transparent;
+        --bs-table-striped-color: #212529;
+        --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+        --bs-table-active-color: #212529;
+        --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+        --bs-table-hover-color: #212529;
+        --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+        vertical-align: top;
+        border-color: #dee2e6;
+    }
 
-<table class="table table-bordered">
+    table {
+        caption-side: bottom;
+        border-collapse: collapse;
+    }
+</style>
+
+<table class="table table-bordered table-responsive">
     <thead>
         <tr>
             <th>No.</th>
@@ -16,9 +38,9 @@ Kindly review the requistion
         </tr>
     </thead>
     <tbody>
-        @foreach ($data->requisitions as $item)
+        @foreach ($data->requisitions as $key => $item)
         <tr>
-            <td>1</td>
+            <td> {{ $key + 1 }} </td>
             <td>{{$item['Item']}}</td>
             <td>{{$item['description']}}</td>
             <td>{{$item['quantity']}}</td>
@@ -29,13 +51,20 @@ Kindly review the requistion
     </tbody>
 </table>
 
+<a class="btn btn-primary" href="{{ $url_2 }}"
+    style="background: #0d6efd;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;border-radius: .25rem;color: #fff;cursor: pointer;text-decoration: none;">Approve</a>
+<a class="btn btn-primary" href="{{ $url_1 }}"
+    style="background: #b02a37;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;border-radius: .25rem;color: #fff;cursor: pointer;text-decoration: none;">Reject</a>
+
+
+{{--
 @component('mail::button', ['url' => $url_1])
 Reject
 @endcomponent
 
 @component('mail::button', ['url' => $url_2])
 Approve
-@endcomponent
+@endcomponent --}}
 
 Thanks,<br>
 {{ config('app.name') }}

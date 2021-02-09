@@ -9,16 +9,17 @@ use Illuminate\Queue\SerializesModels;
 
 class RequisitionMail3 extends Mailable
 {
-    public $url;
+    public $data, $url;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($url)
+    public function __construct($data,$url)
     {
         $this->url = $url;
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +29,9 @@ class RequisitionMail3 extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail/mail3')->to('managingdirector@mftfulfillmentcentre.com');
+        return $this->markdown('mail.mail3')
+                    ->to('managingdirector@mftfulfillmentcentre.com')
+                    ->from('mft.portal@gmail.com', $this->data['name'])
+                    ->subject('Requisition');
     }
 }

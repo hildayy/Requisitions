@@ -32,6 +32,9 @@ class RequisitionMail1 extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail/mail1')->to($this->data['department']);
+        return $this->markdown('mail.mail1')
+                    ->to($this->data['department'])
+                    ->from('mft.portal@gmail.com', $this->data['name'])
+                    ->subject('Requisition');
     }
 }

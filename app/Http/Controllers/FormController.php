@@ -102,6 +102,7 @@ class FormController extends Controller
         // });
         // return ;
 
+        return 'sent';
         return redirect()->route('index')
                          ->with('success','Requisition has been made successfully.');
 
@@ -172,7 +173,9 @@ class FormController extends Controller
 
         });
 
-        return redirect()->back()->with('success', 'Disapproved.');
+        return 'sent';
+
+        // return redirect()->back()->with('success', 'Disapproved.');
     }
 
 
@@ -189,9 +192,9 @@ class FormController extends Controller
     public function approve_2($id)
     {
         $url = env('APP_URL') . '/requisitions/' . $id;
-        // $form = Form::find($id);
+        $form = Form::find($id);
 
-        Mail::send(new RequisitionMail3($url));
+        Mail::send(new RequisitionMail3($form, $url));
         return 'Submited';
     }
 }

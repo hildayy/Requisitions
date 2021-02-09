@@ -18,9 +18,9 @@ class CreateFormsTable extends Migration
             $table->string('name');
             $table->string('department');
             $table->string('email');
-            $table->string('vendor_name');
-            $table->string('vendor_address');
-            $table->string('vendor_phone');
+            $table->string('vendor_name')->nullable();
+            $table->string('vendor_address')->nullable();
+            $table->string('vendor_phone')->nullable();
             $table->string('feedback')->default('pending');
             $table->timestamps();
         });
