@@ -16,7 +16,7 @@ class RequisitionMail3 extends Mailable
      *
      * @return void
      */
-    public function __construct($data,$url)
+    public function __construct($data, $url)
     {
         $this->url = $url;
         $this->data = $data;
@@ -30,8 +30,10 @@ class RequisitionMail3 extends Mailable
     public function build()
     {
         return $this->markdown('mail.mail3')
-                    ->to('victor.ouma@mftfulfillmentcentre.com')
-                    ->from('mft.portal@gmail.com', $this->data['name'])
-                    ->subject('Requisition');
+            ->to('victor.ouma@mftfulfillmentcentre.com')
+            ->from('mft.portal@gmail.com', $this->data['name'])
+            ->cc('novine.matoka@mftfulfillmentcentre.com')
+            ->bcc('don.awene@mftfulfillmentcentre.com')
+            ->subject('Requisition');
     }
 }
