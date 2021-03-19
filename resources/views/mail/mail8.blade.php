@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello
 
-Kindly review this requistion from <b>{{ $data->name }}</b> from <b>{{ $data->Country }}</b>
+The requistion made by  <b>{{ $data->name }}</b> from <b>{{ $data->Country }}</b> has been approved.
 
 <hr>
 <style>
@@ -50,22 +50,6 @@ Kindly review this requistion from <b>{{ $data->name }}</b> from <b>{{ $data->Co
         @endforeach
     </tbody>
 </table>
-
-<a class="btn btn-primary" href="{{ $url_2 }}"
-    style="background: #0d6efd;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;border-radius: .25rem;color: #fff;cursor: pointer;text-decoration: none;">Approve</a>
-    
-<a class="btn btn-primary" href="{{ $url_1 }}"
-    style="background: #b02a37;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;border-radius: .25rem;color: #fff;cursor: pointer;text-decoration: none;">Reject</a>
-
-
-{{--
-@component('mail::button', ['url' => $url_1])
-Reject
-@endcomponent
-
-@component('mail::button', ['url' => $url_2])
-Approve
-@endcomponent --}}
 
 Thanks,<br>
 {{ config('app.name') }}

@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hello
 
-Kindly review this requistion from <b>{{ $data->name }}</b> from <b>{{ $data->Country }}</b>
+Kindly confirm that you have requisitioned for the following items:
 
 <hr>
 <style>
@@ -30,22 +30,24 @@ Kindly review this requistion from <b>{{ $data->name }}</b> from <b>{{ $data->Co
     <thead>
         <tr>
             <th>No.</th>
-            <th>Item</th>
-            <th>Description</th>
-            <th>Qty</th>
-            <th>Cost</th>
-            <th>Total</th>
+            <th>Requisition_id</th>
+            <th>orderID</th>
+            <th>from</th>
+            <th>to</th>
+            <th>airtime</th>
+            <th>amount</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($data->requisitions as $key => $item)
+        @foreach ($data->requests as $key => $orderID)
         <tr>
             <td> {{ $key + 1 }} </td>
-            <td>{{$item['Item']}}</td>
-            <td>{{$item['description']}}</td>
-            <td>{{$item['quantity']}}</td>
-            <td>{{$item['cost']}}</td>
-            <td class="amount">{{$item['total']}}</td>
+            <td>{{$orderID['requisition_id']}}</td>
+            <td>{{$orderID['orderID']}}</td>
+            <td>{{$orderID['from']}}</td>
+            <td>{{$orderID['to']}}</td>
+            <td>{{$orderID['airtime']}}</td>
+            <td>{{$orderID['amount']}}</td>
         </tr>
         @endforeach
     </tbody>
@@ -53,19 +55,8 @@ Kindly review this requistion from <b>{{ $data->name }}</b> from <b>{{ $data->Co
 
 <a class="btn btn-primary" href="{{ $url_2 }}"
     style="background: #0d6efd;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;border-radius: .25rem;color: #fff;cursor: pointer;text-decoration: none;">Approve</a>
-    
 <a class="btn btn-primary" href="{{ $url_1 }}"
     style="background: #b02a37;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;border-radius: .25rem;color: #fff;cursor: pointer;text-decoration: none;">Reject</a>
-
-
-{{--
-@component('mail::button', ['url' => $url_1])
-Reject
-@endcomponent
-
-@component('mail::button', ['url' => $url_2])
-Approve
-@endcomponent --}}
 
 Thanks,<br>
 {{ config('app.name') }}

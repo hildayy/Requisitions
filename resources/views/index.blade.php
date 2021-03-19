@@ -172,7 +172,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class=" form-group">
                                         <label for="department">Department</label>
                                         <select class="custom-select" name="department" value="{{old('department')}}">
@@ -187,13 +187,28 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class=" form-group">
                                         <label for="email">Email</label><span style="color:#ff0000">*</span>
                                         <input type="email" class="form-control" name="email" value="{{old('email')}}">
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                     </div>
                                 </div>
+                                <div class="col-md-2">
+                                    <div class=" form-group">
+                                        <label for="Country">Country</label>
+                                        <select class="custom-select" name="Country">
+                                            <option>Select One</option>
+                                            <option value="Kenya">Kenya</option>
+                                            <option value="Uganda">Uganda</option>
+                                            <option value="Tanzania">Tanzania</option>
+                                            <option value="Rwanda">Rwanda</option>
+                                            <option value="Nigeria">Nigeria</option>
+                                            <option value="Ghana">Ghana</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
                             </div>
 
                             <h5>Recommended Vendor Info.</h5>
@@ -305,9 +320,9 @@
                             </div>
                         </div>
 
-                        @if(session('success'))
+                        @if(session('success2'))
                         <div class="alert alert-success">
-                            {{ session('success') }}
+                            {{ session('success2') }}
                         </div>
                         @endif
 
@@ -322,7 +337,7 @@
                         </div>
                         @endif
 
-                        <form action="{{route('store')}}" id="" name="" method="post" autocomplete="off">
+                        <form action="{{route('store2')}}" id="" name="" method="post" autocomplete="off">
                             {{csrf_field()}}
 
                             <div class="row">
@@ -355,19 +370,19 @@
                                 <div class="col-md-4">
                                     <div class=" form-group">
                                         <label for="region">Agent's Region</label>
-                                        <select class="custom-select" name="department" value="{{old('department')}}">
+                                        <select class="custom-select" name="region">
                                             <option>Select One</option>
                                             <option>Kisumu</option>
                                             <option>Turkana</option>
                                             <option>Migori</option>
                                             <option>Eldoret</option>
                                         </select>
-                                    </div>
+                                    </div>AgentPhone
                                 </div>
                                 <div class="col-md-4">
                                     <div class=" form-group">
-                                        <label for="AgentPhone">Email</label><span style="color:#ff0000">*</span>
-                                        <input type="number" class="form-control" name="AgentPhone">
+                                        <label for="AgentPhone">Agent's Phone number</label><span style="color:#ff0000">*</span>
+                                        <input type="tel" class="form-control" name="AgentPhone">
                                     </div>
                                 </div>
                             </div>
@@ -400,8 +415,6 @@
                                         <tr>
                                             <th scope="col-md-1">QTY<span style="color:#ff0000">*</span></th>
                                             <th scope="col-md-1">Order ID</th>
-                                            <th scope="col-md-2">Name<span style="color:#ff0000">*</span></th>
-                                            <th scope="col-md-1">Phone<span style="color:#ff0000">*</span></th>
                                             <th scope="col-md-2">From</th>
                                             <th scope="col-md-2">To</th>
                                             <th scope="col-md-1">Airtime</th>
@@ -416,12 +429,6 @@
                                             </td>
                                             <td>
                                                 <input type="text" name="orderID[]">
-                                            </td>
-                                            <td>
-                                                <input type="number" name="name[]">
-                                            </td>
-                                            <td>
-                                                <input type="number" name="phone[]">
                                             </td>
                                             <td>
                                                 <input type="text" name="from[]">
@@ -444,8 +451,6 @@
                                         </tr>
                                     </tbody>
                                     <tfoot>
-                                        <td></td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -525,6 +530,7 @@
 		{
 		 addRow();
 		});
+
 		function addRow()
 		{
 			var tr='<tr>'+
@@ -576,18 +582,12 @@
 		});
 		function agentAddRow()
 		{
-			var tr='<tr>'+
+			var tr2='<tr>'+
 						'<td>'+
 							'<input type="number" name="QTY[]">'+
 						'</td>'+
 						'<td>'+
 							'<input type="text" name="orderID[]">'+
-						'</td>'+
-						'<td>'+
-							'<input type="number" name="name[]">'+
-						'</td>'+
-						'<td>'+
-							'<input type="number" name="phone[]">'+
 						'</td>'+
 						'<td>'+
 							'<input type="text" name="from[]">'+
@@ -607,7 +607,7 @@
 						   '</button>'+
 						'</td>'+
 					'</tr>';
-				$('tbody').append(tr);
+				$('tbody').append(tr2);
 		};
     </script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

@@ -65,7 +65,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h3 style="float: left;">  REQUISITIONS MADE BY: <b>{{ $products->form->name }}</b></h3>
+                        <h3 style="float: left;">AGENT  REQUISITIONS MADE BY: <b>{{ $transport->agents->RequisitionerName }}</b></h3>
                         <a class="btn btn-primary" href="/index2" style="float: right">
                             <i class="fas fa-arrow-circle-left"></i>
                         </a>
@@ -79,24 +79,24 @@
                         <table class="table tabl">
                             <thead>
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Item</th>
-                                    <th>Description</th>
-                                    <th>Qty</th>
-                                    <th>Cost</th>
-                                    <th>Total</th>
+                                    <th>Requisition_id</th>
+                                    <th>orderID</th>
+                                    <th>from</th>
+                                    <th>to</th>
+                                    <th>airtime</th>
+                                    <th>amount</th>
                                 </tr>
                             </thead>
                             <tbody>
 
 
                                 <tr>
-                                    <td>1</td>
-                                    <td>{{$products->Item}}</td>
-                                    <td>{{$products->description}}</td>
-                                    <td>{{$products->quantity}}</td>
-                                    <td>{{$products->cost}}</td>
-                                    <td class="amount">{{$products->total}}</td>
+                                    <td>{{$transport['requisition_id']}}</td>
+                                    <td>{{$transport['orderID']}}</td>
+                                    <td>{{$transport['from']}}</td>
+                                    <td>{{$transport['to']}}</td>
+                                    <td>{{$transport['airtime']}}</td>
+                                    <td>{{$transport['amount']}}</td>
                                 </tr>
 
 
@@ -104,16 +104,15 @@
                             </tbody>
                             <tfoot>
 
-                                @if(strtolower($products->feedback)=="pending")
+                                @if(strtolower($transport->feedback)=="Notdisbursed")
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
 
-                                    {{--<td><a class="btn btn-danger" href="/disapprove/{{$commonId}}">Disapprove</a></td>--}}
-                                    <td><a class="btn btn-danger" href="/disapprovalReason/{{$commonId}}">Disapprove</a>
-                                    <td><a class="btn btn-success" href="/approve/{{$commonId}}">Approve</a></td>
+                                    <td><a class="btn btn-danger" href="/disapprove/{{$commonId}}">Disapprove</a></td>
+                                    <td><a class="btn btn-success" href="/approve/{{$commonId}}">Disburse</a></td>
                                 </tr>
                                 @endif
 

@@ -5,13 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Form;
 use App\Requisitions;
-Use App\Gmail;
+use App\requests;
+use App\agents;
 use App\Mail\RequisitionMail1;
 use App\Mail\RequisitionMail2;
 use App\Mail\RequisitionMail3;
+use App\Mail\RequisitionMail4;
+use App\Mail\RequisitionMail5;
+use App\Mail\RequisitionMail6;
+use App\Mail\RequisitionMail7;
+use App\Mail\RequisitionMail8;
+use App\Mail\RequisitionMail9;
+use App\Mail\RequisitionMail10;
+use App\Mail\RequisitionMail11;
+use App\Mail\RequisitionMail12;
 use Illuminate\Support\Facades\Mail;
-use Redirect;
-use Response;
 
 
 class FormController extends Controller
@@ -44,7 +52,9 @@ class FormController extends Controller
         // return $request->all();
         $request ->validate([
             'name' => 'required',
-            'email' => 'required|email'
+            'email' => 'required|email',
+            'Country' => 'required'
+            
         ]);
 
         $item = $request->Item;
@@ -79,31 +89,101 @@ class FormController extends Controller
 
         $form = Form::find($lastid);
 
-        $to_name='hildah';
-        $from_name=$request['name'];
-        $from_email=$request['email'];
-        $to_mail = $request->department;
-        $data = array(
-            'name'=>$to_name,
-            "body" => "Review Requisition"
-        );
 
-        $url_1 = env('APP_URL') . '/disapprove/' . $lastid;
+        $url_1 = env('APP_URL') . '/disapprovalReason/' . $lastid;
         $url_2 = env('APP_URL') . '/approve_1/' . $lastid;
+        $url_3= env('APP_URL') . '/approve_3/' . $lastid;
 
-        Mail::send(new RequisitionMail1($form, $url_1, $url_2));
-        // Mail::send(new RequisitionMail1($from_name, $to_mail));
 
-        // Mail::send('emails\gmail', $data, function($message)use($to_name,$from_email,$from_name) {
-        //     $message->to('hildah.dala@gmail.com')
-        //     ->subject('Items Requisition');
-        //     $message->from($from_email,$from_name);
+        $country=$request->Country;
 
-        // });
-        // return ;
+        Mail::send(new RequisitionMail4($form));
+
+        if($country=='Kenya')
+        {
+            Mail::send(new RequisitionMail1($form, $url_1, $url_2));
+        }
+        elseif($country=='Uganda')
+        {
+            Mail::send(new RequisitionMail7($form, $url_1, $url_3));
+        }
+        elseif($country=='Tanzania')
+        {
+            Mail::send(new RequisitionMail9($form, $url_1, $url_3));
+        }
+        elseif($country=='Rwanda')
+        {
+            Mail::send(new RequisitionMail10($form, $url_1, $url_3));
+        }
+        elseif($country=='Nigeria')
+        {
+            Mail::send(new RequisitionMail11($form, $url_1, $url_3));
+        }
+        else
+        {
+            Mail::send(new RequisitionMail12($form, $url_1, $url_3));
+        }
 
         return redirect()->route('index')
                          ->with('success','Requisition has been made successfully.');
+
+    }
+    public function store2(Request $request)
+    {
+        // return $request->all();
+        $request ->validate([
+            'requisitionNo' => 'required',
+            'AgentName' => 'required',
+            'AgentPhone' => 'required',
+            'RequisitionerName' => 'required',
+            'RequisitionerEmail' => 'required|email'
+        ]);
+
+
+        $orderID = $request->orderID;
+        $from = $request->from;
+        $to = $request->to;
+        $amount = $request->amount;
+
+        foreach ($orderID as $key => $value) {
+            if ($orderID[$key] == null || $from[$key] == null || $to[$key] == null || $amount[$key] == null) {
+                // abort(422, 'Please fill all required fields');
+                return redirect()->back()->withErrors([ 'Please fill all required fields']);
+            }
+        }
+        $data=$request->all();
+        $agents=agents::create($data);
+        $lastid = $agents->id;
+        if(count($request->orderID)>0)
+        {
+            foreach($request->orderID as $product=>$v)
+            {
+                $data2=array(
+                    'requisition_id'=>$lastid,
+                    'QTY'=>$request->QTY[$product],
+                    'orderID'=>$request->orderID[$product],
+                    'from'=>$request->from[$product],
+                    'to'=>$request->to[$product],
+                    'airtime'=>$request->airtime[$product],
+                    'amount'=>$request->amount[$product]
+                );
+                requests::insert($data2);
+            }
+        }
+
+        $lastid = $agents->id;
+        $agents = agents::find($lastid);
+
+
+        $url_1 = env('APP_URL') . '/disapprove/' . $lastid;
+        $url_2 = env('APP_URL') . '/requests/' . $lastid;
+        
+
+        Mail::send(new RequisitionMail5($agents));
+        Mail::send(new RequisitionMail6($agents,$url_1,$url_2));
+
+        return redirect()->route('index2')
+                         ->with('success2','Requisition has been made successfully.');
 
     }
 
@@ -149,6 +229,16 @@ class FormController extends Controller
         return redirect()->route('index2')->with('success', 'Requisition Approved.');
         // return redirect()->back()->with('success', 'Approved.');
     }
+
+    public function disapprovalReason($id ,Request $request)
+    {
+        $requisitions = Requisitions::where('req_id', $id)->get();
+        $form = Form::find($id);
+        $name=$form->name;
+        $commonId = $id;
+        return view('reason',compact( 'name','commonId'));
+
+    }
     public function disapproveReq($id ,Request $request)
     {
         $requisitions = Requisitions::where('req_id', $id)->get();
@@ -183,7 +273,7 @@ class FormController extends Controller
 
     public function approve_1($id)
     {
-        $url_1 = env('APP_URL') . '/disapprove/' . $id;
+        $url_1 = env('APP_URL') . '/disapprovalReason/' . $id;
         $url_2 = env('APP_URL') . '/approve_2/' . $id;
         $form = Form::find($id);
 
@@ -198,5 +288,22 @@ class FormController extends Controller
 
         Mail::send(new RequisitionMail3($form, $url));
         return 'Submited';
+    }
+    public function approve_3($id)
+    {
+       
+        $form = Form::find($id);
+        Mail::send(new RequisitionMail8($form));
+        return 'Submited';
+    }
+
+    public function requests($id, Request $request)
+    {
+   
+        $transport=requests::with(['agents' => function($query) {
+            $query->setEagerLoads([]);
+        }])->where('requisition_id', $id)->first();
+       $commonId = $id;
+       return view('transport',compact('transport', 'commonId'));
     }
 }

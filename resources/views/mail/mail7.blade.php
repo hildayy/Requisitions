@@ -51,7 +51,7 @@ Kindly review this requistion from <b>{{ $data->name }}</b> from <b>{{ $data->Co
     </tbody>
 </table>
 
-<a class="btn btn-primary" href="{{ $url_2 }}"
+<a class="btn btn-primary" href="{{ $url_3 }}"
     style="background: #0d6efd;border: 1px solid transparent;padding: .375rem .75rem;font-size: 1rem;border-radius: .25rem;color: #fff;cursor: pointer;text-decoration: none;">Approve</a>
     
 <a class="btn btn-primary" href="{{ $url_1 }}"
